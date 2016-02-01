@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.util.List;
+import java.util.Collections;
 
 
 public class MyDAOImpl implements MyDAO {
@@ -47,7 +48,9 @@ public class MyDAOImpl implements MyDAO {
     @Override
     public List<Payment> payLog(long id){
         Query query = entityManager.createQuery(queryHistotyString, Payment.class).setParameter("cli_id", id);
-        return (List<Payment>) query.getResultList();
+        List<Payment> results = (List<Payment>) query.getResultList();
+	Collections.reverse(results);
+	return results;
     }
 
     @Override
